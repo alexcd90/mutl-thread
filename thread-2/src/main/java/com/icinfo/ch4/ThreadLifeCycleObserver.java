@@ -9,7 +9,7 @@ import java.util.List;
  * @create: 2019-09-02 21:33
  */
 public class ThreadLifeCycleObserver implements LifeCycleListener{
-    private final Object LOCk = new Object();
+    private final Object LOCK = new Object();
 
     public void cocurrentQuery(List<String> ids){
         if (ids == null || ids.isEmpty()){
@@ -32,9 +32,11 @@ public class ThreadLifeCycleObserver implements LifeCycleListener{
         }).start());
     }
 
+
+
     @Override
     public void onEvent(ObserverRunnable.RunnableEvent event) {
-        synchronized (LOCk){
+        synchronized (LOCK){
             System.out.println("The runnable [" + event.getThread().getName() + "] data changed and state is [" + event.getState() + "]");
             if (event.getCause() != null){
                 System.out.println("The runnable [" + event.getThread().getName() + "] process failed.");
